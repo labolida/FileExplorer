@@ -12,10 +12,7 @@ public class ContainerNorth extends Container{
 		this.setLayout( layout );
 		layout.setHgap(100);
 		layout.setVgap(100);
-
-		ComponentPathUrlText beanPath = new ComponentPathUrlText();
-		ApplicationContext.map.put( "beanPath", beanPath);
 		
-		this.add( beanPath );
+		this.add( ApplicationContext.componentPathUrlText );
 	}
 }

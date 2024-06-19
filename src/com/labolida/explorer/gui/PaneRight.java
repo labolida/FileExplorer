@@ -18,10 +18,7 @@ public class PaneRight extends JPanel {
 			layout.setVgap(10);
 			this.setLayout( layout  );
 			
-			ComponentTableViewFiles beanTable = new ComponentTableViewFiles();
-			ApplicationContext.map.put("beanTable", beanTable);
-			
-			this.add( beanTable.scrollPane );
+			this.add( ApplicationContext.componentTableViewFiles.getInstanceMainComponent() );
 		} 
 		catch (Exception e) {
 			System.out.println("error at PaneListView.(): "+ e.getMessage());

@@ -26,7 +26,7 @@ public class ComponentTreeView extends JComponent {
 	private Icon icon = new ImageIcon("folder.png");
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd.hh:mm:ss");
 	private DecimalFormat numberFormat = new DecimalFormat("#,###");
-	private JTree tree ;
+	private JTree jTree ;
 	private JScrollPane scroll ;
 	private LOG log = new LOG(this.getClass());	
 
@@ -35,27 +35,28 @@ public class ComponentTreeView extends JComponent {
 		//String path = new String("/area6");
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode(path);
 		recursiveLoadFileNodesOnTree( root , path );
-		tree = new JTree(root);
-		tree.addTreeSelectionListener( new EVENT_MOUSE_TREE() );    // EVENT
+		jTree = new JTree(root);
+		jTree.addTreeSelectionListener( new EVENT_MOUSE_TREE() );    // EVENT
 		DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
 		renderer.setOpenIcon(icon);
 	    renderer.setClosedIcon(icon);
 	    renderer.setLeafIcon(icon);
-	    tree.setCellRenderer(renderer);
-	    scroll = new JScrollPane( tree ) ;
+	    jTree.setCellRenderer(renderer);
+	    scroll = new JScrollPane( jTree ) ;
 		this.add(scroll);
+		Style.render(jTree);
 	}
 
 	
 	public JTree getTreeInstance() {
-		return tree;
+		return jTree;
 	}
-	public JScrollPane getJScrollPaneInstance() {
+	public JScrollPane getInstanceMainComponent() {
 		return scroll;
 	}
 	
 	public String getPathFromSelectedNode(){
-		TreePath tp =  tree.getSelectionPath();
+		TreePath tp =  jTree.getSelectionPath();
 		Object [] obj = tp.getPath();
 		String sPath = new String();
 		for (int i = 0; i < obj.length; i++) {
@@ -81,17 +82,13 @@ public class ComponentTreeView extends JComponent {
 	
 	public void loadListFilesFromPath(String path ){
 		try{
-			
-			ComponentTableViewFiles beanTable = (ComponentTableViewFiles) ApplicationContext.map.get("beanTable");
-			
 			File file  = new File(path);
 			File files[] = file.listFiles();
 
-			while ( beanTable.model.getRowCount() > 0 ) {
-				beanTable.model.removeRow(0);
+			while ( ApplicationContext.componentTableViewFiles.model.getRowCount() > 0 ) {
+				ApplicationContext.componentTableViewFiles.model.removeRow(0);
 			}
 
-			
 			for (int i=0; i<files.length; i++ ) {
 				String row[] = new String[9];
 				
@@ -116,7 +113,7 @@ public class ComponentTreeView extends JComponent {
 				if ( files[i].canRead() ) permission+="R";
 				row[5] = permission ;
 				
-				beanTable.model.addRow(row);
+				ApplicationContext.componentTableViewFiles.model.addRow(row);
 			}
 		}
 		catch(Exception e){
