@@ -24,10 +24,19 @@ public class ComponentTableViewFiles extends JComponent {
 		String row[] = {};
 		model.addRow( row );
 		
+		jtable.setEnabled(true);
 		jtable.setAutoResizeMode(1);
 		jtable.setAutoCreateRowSorter(true);
 		JTableHeader header = jtable.getTableHeader();
 		header.setReorderingAllowed(true);
+		
+		
+		jtable.getColumnModel().getColumn(0).setPreferredWidth(10);
+		jtable.getColumnModel().getColumn(1).setPreferredWidth(500);
+		jtable.getColumnModel().getColumn(2).setPreferredWidth(80);
+		jtable.getColumnModel().getColumn(3).setPreferredWidth(80);
+		jtable.getColumnModel().getColumn(4).setPreferredWidth(10);
+		jtable.getColumnModel().getColumn(5).setPreferredWidth(10);
 		
 		Style.render(jtable);
 	}

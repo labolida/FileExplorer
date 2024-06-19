@@ -13,6 +13,8 @@ public class ContainerNorth extends Container{
 		layout.setHgap(100);
 		layout.setVgap(100);
 		
+		Style.render( ApplicationContext.componentPathUrlText );
+		
 		this.add( ApplicationContext.componentPathUrlText );
 	}
 }
