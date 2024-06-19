@@ -17,12 +17,12 @@ public class PaneLeft extends JPanel {
 			layout.setVgap(10);
 			this.setLayout( layout );
 			
-			ComponentTreeView beanTreeView = new ComponentTreeView();
+			ComponentTreeView beanTreeView = new ComponentTreeView("/");
 			ApplicationContext.map.put("beanTreeView", beanTreeView);
-			this.add(beanTreeView.getTreeInstance());
+			this.add(beanTreeView.getJScrollPaneInstance());
 		} 
 		catch (Exception e) {
-			log.write(e, "General error");
+			log.write(e, "PaneLeft Constructor error");
 		}
 	}
 }

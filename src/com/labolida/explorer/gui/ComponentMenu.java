@@ -4,6 +4,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import com.labolida.explorer.events.EVENT_MENU;
+
 public class ComponentMenu {
 	
 	public static JMenuBar getMenuBar(){
@@ -22,10 +24,18 @@ public class ComponentMenu {
 		JMenuItem item_open  =  new JMenuItem("Open");
 		JMenuItem item_save  =  new JMenuItem("Save");
 		JMenuItem item_exit  =  new JMenuItem("Exit");
+		
 		menu_file.add( item_new);
 		menu_file.add( item_open);
 		menu_file.add( item_save);
 		menu_file.add( item_exit);
+		
+		
+		EVENT_MENU event = new EVENT_MENU();
+		item_new.addActionListener(event);
+		item_open.addActionListener(event);
+		item_save.addActionListener(event);
+		item_exit.addActionListener(event);
 		
 		return menuBar;
 	}

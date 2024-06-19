@@ -25,6 +25,7 @@ public class PaneRight extends JPanel {
 		} 
 		catch (Exception e) {
 			System.out.println("error at PaneListView.(): "+ e.getMessage());
+			log.write(e, "PaneRight Constructor error");
 		}
 	}
 }

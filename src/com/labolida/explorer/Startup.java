@@ -2,6 +2,8 @@ package com.labolida.explorer;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+
 import com.labolida.explorer.events.EVENT_EXIT;
 import com.labolida.explorer.gui.ContainerCenter;
 import com.labolida.explorer.gui.ContainerNorth;
@@ -10,7 +12,12 @@ import com.labolida.explorer.gui.ComponentMenu;
 
 public class Startup extends JFrame {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		
+		UIManager.setLookAndFeel(  UIManager.getCrossPlatformLookAndFeelClassName()  );
+		UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+		//UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+		//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");//not supported on this platform (Linux Ubuntu)
 		new Startup();
 	}
 	

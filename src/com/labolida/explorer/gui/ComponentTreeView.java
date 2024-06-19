@@ -1,5 +1,6 @@
 package com.labolida.explorer.gui;
 
+import java.awt.Color;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.attribute.UserPrincipal;
@@ -26,12 +27,12 @@ public class ComponentTreeView extends JComponent {
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd.hh:mm:ss");
 	private DecimalFormat numberFormat = new DecimalFormat("#,###");
 	private JTree tree ;
+	private JScrollPane scroll ;
 	private LOG log = new LOG(this.getClass());	
 
 	
-	public ComponentTreeView() {
-		
-		String path = new String("/area6/tmp");
+	public ComponentTreeView(String path) {
+		//String path = new String("/area6");
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode(path);
 		recursiveLoadFileNodesOnTree( root , path );
 		tree = new JTree(root);
@@ -41,15 +42,18 @@ public class ComponentTreeView extends JComponent {
 	    renderer.setClosedIcon(icon);
 	    renderer.setLeafIcon(icon);
 	    tree.setCellRenderer(renderer);
-		
-		JScrollPane scroll = new JScrollPane( tree ) ;
+	    scroll = new JScrollPane( tree ) ;
 		this.add(scroll);
 	}
+
 	
 	public JTree getTreeInstance() {
 		return tree;
 	}
-
+	public JScrollPane getJScrollPaneInstance() {
+		return scroll;
+	}
+	
 	public String getPathFromSelectedNode(){
 		TreePath tp =  tree.getSelectionPath();
 		Object [] obj = tp.getPath();
@@ -87,6 +91,7 @@ public class ComponentTreeView extends JComponent {
 				beanTable.model.removeRow(0);
 			}
 
+			
 			for (int i=0; i<files.length; i++ ) {
 				String row[] = new String[9];
 				
@@ -100,17 +105,16 @@ public class ComponentTreeView extends JComponent {
 				row[2]=  size +" bytes";
 				
 				row[3] = dateFormat.format( files[i].lastModified() );
-				row[4] = dateFormat.format( files[i].lastModified() );
 
 				UserPrincipal owner =	Files.getOwner( files[i].toPath() ) ;
 				String ownersName = owner.getName();
-				row[5] = ownersName;
+				row[4] = ownersName;
 				
 				String permission = new String();
 				if ( files[i].canExecute() ) permission+="X";
 				if ( files[i].canWrite() ) permission+="W";
 				if ( files[i].canRead() ) permission+="R";
-				row[6] = permission ;
+				row[5] = permission ;
 				
 				beanTable.model.addRow(row);
 			}
